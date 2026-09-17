@@ -1,5 +1,5 @@
 import type { MenuCategory } from '../data/menus';
-import { CATEGORIES } from '../data/menus';
+import { CATEGORIES, CATEGORY_META } from '../data/menus';
 
 interface HomeViewProps {
   selectedCategory: MenuCategory | null;
@@ -15,7 +15,10 @@ export function HomeView({ selectedCategory, onSelectCategory, onPick, onOpenHis
         지난 기록
       </button>
 
-      <div className="home-copy">
+      <div className="home-hero">
+        <span className="home-emoji" aria-hidden="true">
+          🍽️
+        </span>
         <p className="home-eyebrow">오늘 점심, 고민 끝</p>
         <h1 className="home-title">오늘 뭐 먹지?</h1>
       </div>
@@ -35,7 +38,7 @@ export function HomeView({ selectedCategory, onSelectCategory, onPick, onOpenHis
             className={`chip ${selectedCategory === category ? 'chip-active' : ''}`}
             onClick={() => onSelectCategory(category)}
           >
-            {category}
+            <span aria-hidden="true">{CATEGORY_META[category].emoji}</span> {category}
           </button>
         ))}
       </div>

@@ -1,4 +1,5 @@
 import type { MenuItem } from '../data/menus';
+import { CATEGORY_META } from '../data/menus';
 
 interface ResultViewProps {
   menu: MenuItem;
@@ -10,28 +11,39 @@ interface ResultViewProps {
 }
 
 export function ResultView({ menu, saved, onReroll, onSave, onShare, onBack }: ResultViewProps) {
+  const meta = CATEGORY_META[menu.category];
+
   return (
     <main className="screen screen-result">
       <button type="button" className="back-link" onClick={onBack}>
         ← 처음으로
       </button>
 
-      <div className="result-card">
-        <p className="result-category">{menu.category}</p>
+      <div
+        key={menu.id}
+        className="result-card"
+        style={{ background: meta.accentSoft }}
+      >
+        <span className="result-emoji" aria-hidden="true">
+          {meta.emoji}
+        </span>
+        <p className="result-category" style={{ color: meta.accent }}>
+          {menu.category}
+        </p>
         <p className="result-name">{menu.name}</p>
       </div>
 
       <div className="result-actions">
         <button type="button" className="secondary-button" onClick={onReroll}>
-          다시 뽑기
+          🔄 다시 뽑기
         </button>
         <button type="button" className="secondary-button" onClick={onShare}>
-          공유하기
+          📤 공유하기
         </button>
       </div>
 
       <button type="button" className="pick-button pick-button-save" onClick={onSave} disabled={saved}>
-        {saved ? '저장됐어요' : '저장하기'}
+        {saved ? '✅ 저장됐어요' : '저장하기'}
       </button>
     </main>
   );

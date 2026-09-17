@@ -1,4 +1,5 @@
 import type { HistoryEntry } from '../lib/history';
+import { CATEGORY_META, type MenuCategory } from '../data/menus';
 
 interface HistoryViewProps {
   entries: HistoryEntry[];
@@ -15,6 +16,10 @@ function formatTime(iso: string): string {
   });
 }
 
+function emojiFor(category: string): string {
+  return CATEGORY_META[category as MenuCategory]?.emoji ?? '🍽️';
+}
+
 export function HistoryView({ entries, onBack }: HistoryViewProps) {
   return (
     <main className="screen screen-history">
@@ -25,14 +30,24 @@ export function HistoryView({ entries, onBack }: HistoryViewProps) {
       <h2 className="history-title">지난 기록</h2>
 
       {entries.length === 0 ? (
-        <p className="history-empty">아직 저장한 메뉴가 없어요.</p>
+        <div className="history-empty">
+          <span className="history-empty-emoji" aria-hidden="true">
+            🗒️
+          </span>
+          <p>아직 저장한 메뉴가 없어요.</p>
+        </div>
       ) : (
         <ul className="history-list">
           {entries.map((entry) => (
             <li key={entry.id} className="history-item">
-              <span className="history-item-name">{entry.name}</span>
-              <span className="history-item-meta">
-                {entry.category} · {formatTime(entry.pickedAt)}
+              <span className="history-item-emoji" aria-hidden="true">
+                {emojiFor(entry.category)}
+              </span>
+              <span className="history-item-body">
+                <span className="history-item-name">{entry.name}</span>
+                <span className="history-item-meta">
+                  {entry.category} · {formatTime(entry.pickedAt)}
+                </span>
               </span>
             </li>
           ))}

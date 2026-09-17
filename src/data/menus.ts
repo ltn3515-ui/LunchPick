@@ -8,6 +8,20 @@ export interface MenuItem {
 
 export const CATEGORIES: MenuCategory[] = ['한식', '중식', '일식', '양식', '분식'];
 
+export interface CategoryMeta {
+  emoji: string;
+  accent: string;
+  accentSoft: string;
+}
+
+export const CATEGORY_META: Record<MenuCategory, CategoryMeta> = {
+  한식: { emoji: '🍚', accent: '#d9480f', accentSoft: '#fff0e6' },
+  중식: { emoji: '🥡', accent: '#c92a2a', accentSoft: '#ffe9e9' },
+  일식: { emoji: '🍣', accent: '#1971c2', accentSoft: '#e7f5ff' },
+  양식: { emoji: '🍝', accent: '#7048e8', accentSoft: '#f2eaff' },
+  분식: { emoji: '🍢', accent: '#c2255c', accentSoft: '#fff0f6' },
+};
+
 export const MENUS: MenuItem[] = [
   { id: 'kr-01', name: '김치찌개', category: '한식' },
   { id: 'kr-02', name: '된장찌개', category: '한식' },
