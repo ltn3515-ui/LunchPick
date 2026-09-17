@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { MenuItem } from '../data/menus';
 import { CATEGORY_META } from '../data/menus';
 
@@ -12,6 +13,7 @@ interface ResultViewProps {
 
 export function ResultView({ menu, saved, onReroll, onSave, onShare, onBack }: ResultViewProps) {
   const meta = CATEGORY_META[menu.category];
+  const [imageFailed, setImageFailed] = useState(false);
 
   return (
     <main className="screen screen-result">
@@ -19,14 +21,19 @@ export function ResultView({ menu, saved, onReroll, onSave, onShare, onBack }: R
         ← 처음으로
       </button>
 
-      <div
-        key={menu.id}
-        className="result-card"
-        style={{ background: meta.accentSoft }}
-      >
-        <span className="result-emoji" aria-hidden="true">
-          {meta.emoji}
-        </span>
+      <div className="result-card" style={{ background: meta.accentSoft }}>
+        {!imageFailed ? (
+          <img
+            className="result-photo"
+            src={menu.image}
+            alt={menu.name}
+            onError={() => setImageFailed(true)}
+          />
+        ) : (
+          <span className="result-emoji" aria-hidden="true">
+            {meta.emoji}
+          </span>
+        )}
         <p className="result-category" style={{ color: meta.accent }}>
           {menu.category}
         </p>

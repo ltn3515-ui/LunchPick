@@ -190,6 +190,15 @@
   margin-bottom: 4px;
 }
 
+.result-photo {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 4px;
+  box-shadow: 0 8px 20px rgba(25, 31, 40, 0.12);
+}
+
 .result-category {
   margin: 0;
   font-size: 15px;

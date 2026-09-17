@@ -86,6 +86,7 @@ function App() {
       )}
       {view === 'result' && menu && (
         <ResultView
+          key={menu.id}
           menu={menu}
           saved={saved}
           onReroll={handleReroll}

@@ -4,6 +4,8 @@ export interface MenuItem {
   id: string;
   name: string;
   category: MenuCategory;
+  /** public/menu/{id}.jpg 에 사진을 올리면 자동으로 노출됨 (없으면 카테고리 이모지로 대체) */
+  image: string;
 }
 
 export const CATEGORIES: MenuCategory[] = ['한식', '중식', '일식', '양식', '분식'];
@@ -22,7 +24,7 @@ export const CATEGORY_META: Record<MenuCategory, CategoryMeta> = {
   분식: { emoji: '🍢', accent: '#c2255c', accentSoft: '#fff0f6' },
 };
 
-export const MENUS: MenuItem[] = [
+const RAW_MENUS: Omit<MenuItem, 'image'>[] = [
   { id: 'kr-01', name: '김치찌개', category: '한식' },
   { id: 'kr-02', name: '된장찌개', category: '한식' },
   { id: 'kr-03', name: '비빔밥', category: '한식' },
@@ -55,6 +57,11 @@ export const MENUS: MenuItem[] = [
   { id: 'bs-04', name: '라면', category: '분식' },
   { id: 'bs-05', name: '튀김', category: '분식' },
 ];
+
+export const MENUS: MenuItem[] = RAW_MENUS.map((menu) => ({
+  ...menu,
+  image: `/menu/${menu.id}.jpg`,
+}));
 
 export function pickRandomMenu(category?: MenuCategory): MenuItem {
   const pool = category ? MENUS.filter((menu) => menu.category === category) : MENUS;
